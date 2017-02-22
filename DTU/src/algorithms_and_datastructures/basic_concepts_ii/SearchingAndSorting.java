@@ -80,32 +80,36 @@ public class SearchingAndSorting {
 			return tempSmallestInts.get(0);
 		    }
 		
+		//Week 2, Mandatory ass. 2
 		public static int findSmallestMissingIntv2(int[] integers) {
-			int j = integers[0];
-			ArrayList<Integer> tempSmallestInts = new ArrayList<>();
-			int smallestNo = 0;
-			
-			for(int i = 0; i < integers.length; i++) {
-				if(j == integers[i]) {
-					j++;
-					continue;
-				} else {
-					tempSmallestInts.add(j);
-					j++;
-					i--;
-					}
-			}
-			
-			for(int k = 0; k < tempSmallestInts.size(); k++) {
-				smallestNo = tempSmallestInts.get(0);
-				if(tempSmallestInts.size() == 1) {
-					return smallestNo;
-				} else if (smallestNo > tempSmallestInts.get(k)) {
-					smallestNo = tempSmallestInts.get(k);
-				}
-			}
-				return smallestNo;
-		    }
-		}
+	        int j = integers[0];
+	        ArrayList<Integer> tempSmallestInts = new ArrayList<>();
+	        int smallestNo = 0;
+	        
+	        for(int i = 0; i < integers.length; i++) {
+	            if(j == integers[i]) {
+	                j++;
+	                continue;
+	            } else {
+	                tempSmallestInts.add(j);
+	                if(j < integers[i] ) {
+	                	j++;
+		                i--;
+	                	}
+	                }
+	        }
+	        
+	        for(int k = 0; k < tempSmallestInts.size(); k++) {
+	            smallestNo = tempSmallestInts.get(0);
+	            if(tempSmallestInts.size() == 1) {
+	                return smallestNo;
+	            } else if (smallestNo > tempSmallestInts.get(k)) {
+	                smallestNo = tempSmallestInts.get(k);
+	            }
+	        }
+	        
+	        return smallestNo;
+	    } 
+	}
 
 
