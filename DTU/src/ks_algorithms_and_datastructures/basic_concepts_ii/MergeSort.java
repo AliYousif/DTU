@@ -10,9 +10,7 @@ public class MergeSort {
 		MergeSort sort = new MergeSort();
 		int resultat = sort.insertionSort(A);
 		System.out.println("insertion with sort first: " + resultat);
-		
-		helper = new int[A1.length];
-		int[] resArray = sort.sort(A1, 0, A1.length-1);
+		int[] resArray = sort.sort(A1);
 		sort.print(resArray);
 		
 	}
@@ -42,21 +40,21 @@ public class MergeSort {
 		return 0;
 	}
 	
-	public int[] sort(int[] a, int low_idx, int high_idx){
+	private int[] sort(int[] numbers) {
+		helper = new int[numbers.length];
+		int[] resArray = this.sortSplit(numbers, 0, numbers.length-1);
+		return resArray;
+	}
+	
+	public int[] sortSplit(int[] a, int low_idx, int high_idx){
 		if(low_idx < high_idx){
 			int middle = (low_idx + high_idx)/2;
-			sort(a,low_idx,middle);
-			sort(a,middle+1,high_idx);
+			sortSplit(a,low_idx,middle);
+			sortSplit(a,middle+1,high_idx);
 			merge(a,middle, low_idx, high_idx);
 		}
 		return a;
 	}
-	
-	/*
-	public int[] merge(int[] a, int middle, int low_idx, int high_idx){
-		return a;
-	}
-	*/
 	
 	private void merge(int[] numbers,int middle,int low, int high) {
 
