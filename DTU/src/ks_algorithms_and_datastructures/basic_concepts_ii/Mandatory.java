@@ -146,7 +146,8 @@ static int[] tempMergArr;
 	private void printMyArray(int[] resArray){
 		String printThis = "{";
 		for(int i = 0; i < resArray.length; i++){
-			if(i > resArray.length-1){printThis = printThis + "}";}
+			if(i == resArray.length-1){printThis = printThis + "}";}
+			else 
 			printThis = printThis +resArray[i]+",";
 		}
 		System.out.println(printThis);

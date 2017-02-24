@@ -90,7 +90,9 @@ public class MergeSort {
 	public void print(int[]a){
 		String toPrint = "";
 		for(int i=0; i<a.length;i++){
-			toPrint = toPrint + a[i]+"-";
+			if(i == a.length-1 ){toPrint = toPrint + a[i];}
+			else
+				toPrint = toPrint + a[i]+"-";
 		}
 		System.out.println(toPrint);
 	}
