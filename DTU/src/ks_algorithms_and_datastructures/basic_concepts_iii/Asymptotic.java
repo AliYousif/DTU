@@ -15,6 +15,7 @@ public class Asymptotic {
 	public void CalculateRunTime(Asymptotic asymptotic, String methodName, int n) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		Class<?> c = asymptotic.getClass();
 		Method  method = c.getDeclaredMethod (methodName, int.class);
+		
 		long startTime = System.currentTimeMillis();
 		method.invoke (asymptotic, n);
 		long endTime   = System.currentTimeMillis();
