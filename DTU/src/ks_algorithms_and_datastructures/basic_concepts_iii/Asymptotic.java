@@ -7,9 +7,9 @@ public class Asymptotic {
 	
 	public static void main (String args[]) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		Asymptotic asymptotic = new Asymptotic();
-		asymptotic.CalculateRunTime(asymptotic, "CalculateAlgo1", 10000);
-		asymptotic.CalculateRunTime(asymptotic, "CalculateAlgo2", 10000);
-		asymptotic.CalculateRunTime(asymptotic, "CalculateAlgo3", 10000);
+		asymptotic.CalculateRunTime(asymptotic, "CalculateAlgo1", 100000);
+		asymptotic.CalculateRunTime(asymptotic, "CalculateAlgo2", 100000);
+		asymptotic.CalculateRunTime(asymptotic, "CalculateAlgo3", 100000);
 	}
 	
 	public void CalculateRunTime(Asymptotic asymptotic, String methodName, int n) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
@@ -20,7 +20,7 @@ public class Asymptotic {
 		method.invoke (asymptotic, n);
 		long endTime   = System.currentTimeMillis();
 		long totalTime = endTime - startTime;
-		System.out.println(totalTime);
+		System.out.println("total time for " + methodName+"("+n+")"+": " + totalTime + " milliseconds");
 	}
 	
 	public void CalculateAlgo1(int n) {
