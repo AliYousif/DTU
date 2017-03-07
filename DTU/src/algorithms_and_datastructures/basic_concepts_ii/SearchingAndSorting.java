@@ -24,9 +24,9 @@ public class SearchingAndSorting {
 
 	public static void main(String[] args) throws IOException {
 		// new SearchingAndSorting().run();
-		int[] numbers = { 9, 8, 7,6,5,4,3};
+		int[] numbers = { 9, 8, 7, 6, 5, 4, 3 };
 		System.out.println(insertionSort(numbers));
-		//System.out.println(findSmallestMissingIntv2(numbers));
+		// System.out.println(findSmallestMissingIntv2(numbers));
 	}
 
 	private void run() throws IOException {
@@ -50,29 +50,26 @@ public class SearchingAndSorting {
 		}
 		return array;
 	}
-	
-	private static int[] insertionSort (int[] array) {
-	    for(int i = 1; i < array.length ;){
-	        if(array[i] < array[i-1]){
-	            int temp = array[i];
-	            array[i] = array[i - 1];
-	            array[i - 1] = temp;
-	            i--;
-	        } else {
-	        	i++;
-	        }
-	    }
-	    return array;
-	}
-	
-	// Week 2, Mandatory ass. 1
-		public static int findSmallestMissingInt(int[] integers) {
-			
 
-			return 0;
+	private static int[] insertionSort(int[] array) {
+		for (int i = 1; i < array.length;) {
+			if (array[i] < array[i - 1]) {
+				int temp = array[i];
+				array[i] = array[i - 1];
+				array[i - 1] = temp;
+				i--;
+			} else {
+				i++;
+			}
 		}
-	
-	
+		return array;
+	}
+
+	// Week 2, Mandatory ass. 1
+	public static int findSmallestMissingInt(int[] integers) {
+
+		return 0;
+	}
 
 	// Week 2, Mandatory ass. 2
 	public static int findSmallestMissingIntv2(int[] integers) {
