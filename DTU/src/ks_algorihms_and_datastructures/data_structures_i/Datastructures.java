@@ -14,40 +14,86 @@ import javafx.stage.Stage;
 
 public class Datastructures extends Application {
 	
-	int[] listOfRandInt;
+	static int[] listOfRandInt;
 	int prevLength = 0;
-	ArrayList<Integer> results = new ArrayList<Integer>();
+	public static ArrayList<RunInfo> results = new ArrayList<RunInfo>();
+	
 
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		Datastructures ds = new Datastructures();
-		ds.createSequence();
-		ds.CalculateRunTime(ds, "createSequence");
-		ds.createSequence();
-		ds.CalculateRunTime(ds, "createSequence");
-		ds.createSequence();
-		ds.CalculateRunTime(ds, "createSequence");
+		//ds.createSequence();
+		listOfRandInt = new int[]{3,2,5,7,9,1,4,6,8};
 		
-		ds.CalculateRunTime(ds, "sortJavaImpl");
+		int[] dest = new int[listOfRandInt.length];
+
+		System.arraycopy( listOfRandInt, 0, dest, 0, listOfRandInt.length);
+		
+		ds.CalculateRunTime(ds, "sortJavaImpl", dest);
+		System.arraycopy( listOfRandInt, 0, dest, 0, listOfRandInt.length);
+		ds.CalculateRunTime(ds, "insertionSort", dest);
+		System.arraycopy( listOfRandInt, 0, dest, 0, listOfRandInt.length);
+		ds.CalculateRunTime(ds, "sort", dest);
 		
 		launch(args);
 		
 	}
 	
-	public void CalculateRunTime(Datastructures datastructures, String methodName) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
-		Class<?> c = datastructures.getClass();
-		Method  method = c.getDeclaredMethod (methodName);
-		
-		long startTime = System.currentTimeMillis();
-		method.invoke (datastructures);
-		long endTime   = System.currentTimeMillis();
-		long totalTime = endTime - startTime;
-		results.add((int) totalTime);
-		System.out.println("total time for " + methodName+"()"+": " + totalTime + " milliseconds");
+	public class RunInfo{
+		int runtime;
+		String name;
+		int lenghtOfArray;
 	}
 	
-	public void sortJavaImpl(){
-		Arrays.sort(listOfRandInt);
+	public void CalculateRunTime(Datastructures datastructures, String methodName, int[] a) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+		Class<?> c = datastructures.getClass();
+		Method  method = c.getDeclaredMethod (methodName, int[].class);
+		
+		this.print(a, methodName, "before");
+		long startTime = System.currentTimeMillis();
+		method.invoke (datastructures, a);
+		long endTime   = System.currentTimeMillis();
+		long totalTime = endTime - startTime;
+		
+		RunInfo runInfoTemp = new RunInfo();
+		runInfoTemp.runtime = (int) totalTime;
+		runInfoTemp.name = methodName;
+		runInfoTemp.lenghtOfArray =  a.length;
+		
+		results.add(runInfoTemp);
+		System.out.println("total time for " + methodName+"()"+": " + totalTime + " milliseconds" + " on a array of lenght: " + a.length);
+		this.print(a, methodName, "after");
+	}
+	
+	public void sortJavaImpl(int[] arr){
+		Arrays.sort(arr);
+	}
+	
+	public int[] insertionSort(int[] arr){
+        int temp;
+        for (int i = 1; i < arr.length; i++) {
+            for(int j = i ; j > 0 ; j--){
+                if(arr[j] < arr[j-1]){
+                    temp = arr[j];
+                    arr[j] = arr[j-1];
+                    arr[j-1] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+	
+	public int[] sort(int[] arr){
+	    for (int i = 1; i <= arr.length-1; i++) {
+	        int element = arr[i];
+	        int j = i;
+	        while (j>0 && (arr[j-1] > element)) {
+	        	arr[j] = arr[j-1];
+	            j--;
+	        }
+	        arr[j] = element;
+	    }
+	    return arr;
 	}
 	
 	public void createSequence(){
@@ -65,22 +111,22 @@ public class Datastructures extends Application {
 		for(int i = 0; i<length;i++){
 			listOfRandInt[i] = rand.nextInt();
 		}
-	
-		for (int i : listOfRandInt) {
-			System.out.println(i);
-		}
 		
-		System.out.println(listOfRandInt.length); 
+		System.out.println("lenght of array: "+listOfRandInt.length); 
 		
 	}
 
-	@Override public void start(Stage stage) {
+	public void print(int[] A, String methodname, String beforeOrAfter){
+		String res = "("+beforeOrAfter+")" +" " + methodname +": ";
+	    for (int i = 0; i < A.length; i++) {
+	        res = res + A[i] + " ";
+	    }
+	    System.out.print(res);
+	}
+	
+	public void start(Stage stage) {
         stage.setTitle("Runtime");
-        
-        results.add(23);
-        results.add(3);
-        prevLength = 1000;
-        int tempPrev = 1000;
+       
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -92,23 +138,24 @@ public class Datastructures extends Application {
                 
         lineChart.setTitle("GIV VARIABILE FOR SORT");
         //defining a series
-        
         for(int i = 0; i < results.size(); i++){
         	XYChart.Series series = new XYChart.Series();
-        	int substract = prevLength/results.get(i);
-        	for(int j = 0; j < results.get(i)+1; j++){
-		        //populating the series with data
-		        series.setName(""+j);
-		        if(j == 0){
-		        	series.getData().add(new XYChart.Data(j, prevLength));
-		        } else {
-		        	prevLength= prevLength - substract;
-		        	series.getData().add(new XYChart.Data(j, prevLength));
-		        }
-		        
-        	}
-        	lineChart.getData().add(series);
-        	prevLength = tempPrev;
+        	if(results.get(i).runtime > 0){
+	        	int substract = results.get(i).lenghtOfArray/results.get(i).runtime;
+	        	for(int j = 0; j < results.get(i).runtime+1; j++){
+			        //populating the series with data
+			        series.setName(results.get(i).name+": "+j);
+			        if(j == 0){
+			        	series.getData().add(new XYChart.Data(j, results.get(i).lenghtOfArray));
+			        	prevLength = results.get(i).lenghtOfArray;
+			        } else {
+			        	prevLength= prevLength - substract;
+			        	series.getData().add(new XYChart.Data(j, prevLength));
+			        }
+			        
+	        	}
+	        	lineChart.getData().add(series);
+	        }
         }
         
         Scene scene  = new Scene(lineChart,800,600);
