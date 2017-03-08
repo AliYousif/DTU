@@ -15,24 +15,24 @@ import ks_algorithms_and_datastructures.data_structures_i.Datastructures;
 
 public class InsertionSort extends Application {
 
-	int[] listOfRandomIntForJavaSort;
+	static int[] listOfRandomIntForJavaSort;
 	int[] listOfRandomIntForInsertionSort;
 	int prevLength = 0;
-	ArrayList<Integer> results = new ArrayList<Integer>();
+	static ArrayList<Integer> results = new ArrayList<Integer>();
 
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 
 		InsertionSort insertionSort = new InsertionSort();
 		
-		insertionSort.createSequence();
-		System.out.println("Length of random array with ints 1 TIME for Arrays.Sort --------------------------------: " + insertionSort.listOfRandomIntForJavaSort.length);
+		insertionSort.createArrayWithIntegers();
+		System.out.println("Length of random array with ints 1 TIME for Arrays.Sort ----------------------------------: " + insertionSort.listOfRandomIntForJavaSort.length);
 		System.out.println("Length of random array with ints 1 TIME for InsertionSort --------------------------------: " + insertionSort.listOfRandomIntForInsertionSort.length);
-		insertionSort.createSequence();
-		System.out.println("Length of random array with ints 2 TIME --------------------------------: " + insertionSort.listOfRandomIntForJavaSort.length);
+		insertionSort.createArrayWithIntegers();
+		System.out.println("Length of random array with ints 2 TIME for Arrays.Sort ----------------------------------: " + insertionSort.listOfRandomIntForJavaSort.length);
 		System.out.println("Length of random array with ints 2 TIME for InsertionSort --------------------------------: " + insertionSort.listOfRandomIntForInsertionSort.length);
-		insertionSort.createSequence();
-		System.out.println("Length of random array with ints 3 TIME --------------------------------: " + insertionSort.listOfRandomIntForJavaSort.length);
+		insertionSort.createArrayWithIntegers();
+		System.out.println("Length of random array with ints 3 TIME for Arrays.Sort ----------------------------------: " + insertionSort.listOfRandomIntForJavaSort.length);
 		System.out.println("Length of random array with ints 3 TIME for InsertionSort --------------------------------: " + insertionSort.listOfRandomIntForInsertionSort.length);
 		
 //		System.out.println("The unsorted array with random numbers and random size: ----------------------------------------- ");
@@ -53,6 +53,7 @@ public class InsertionSort extends Application {
 		launch(args);
 
 	}
+		
 	// M1 - My implementation of InsertionSort
 	private int[] insertionSort(int[] array) {
 		for (int i = 1; i <= array.length-1; i++) {
@@ -78,13 +79,13 @@ public class InsertionSort extends Application {
 	}
 	
 	// M2 - Creates a random size if called multiple times its always increases the size - and adds random positive integers to the array
-	public void createSequence() {
+	public void createArrayWithIntegers() {
 
 		Random random = new Random();
-		int length = random.nextInt(10000);
+		int length = random.nextInt(100000);
 
 		while (prevLength > length) {
-			length = random.nextInt(10000);
+			length = random.nextInt(100000);
 		}
 
 		prevLength = length;
@@ -103,19 +104,19 @@ public class InsertionSort extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		primaryStage.setTitle("Runtime");
-
-		prevLength = 1000;
-		int tempPrev = 1000;
+		primaryStage.setTitle("Drawing graphs for algorithms");
+		
+		prevLength = listOfRandomIntForJavaSort.length;
+		int tempPrev = listOfRandomIntForJavaSort.length;
 		// defining the axes
 		final NumberAxis xAxis = new NumberAxis();
 		final NumberAxis yAxis = new NumberAxis();
-		xAxis.setLabel("Time");
+		xAxis.setLabel("Time (milliseconds)");
 		yAxis.setLabel("Size");
 		// creating the chart
 		final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 
-		lineChart.setTitle("GIV VARIABILE FOR SORT");
+		lineChart.setTitle("Compare algorithms runtime: Arrays.Sort vs Insertion-Sort");
 		// defining a series
 
 		for (int i = 0; i < results.size(); i++) {
@@ -156,5 +157,6 @@ public class InsertionSort extends Application {
 		results.add((int) totalTime);
 		System.out.println("Total time for " + methodName + "()" + ": " + totalTime + " milliseconds");
 	}
+	
 
 }
