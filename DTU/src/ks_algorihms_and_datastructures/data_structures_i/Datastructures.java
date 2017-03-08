@@ -23,6 +23,8 @@ public class Datastructures extends Application {
 		
 		Datastructures ds = new Datastructures();
 		//ds.createSequence();
+		
+		
 		listOfRandInt = new int[]{3,2,5,7,9,1,4,6,8};
 		
 		int[] dest = new int[listOfRandInt.length];
