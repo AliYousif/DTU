@@ -1,4 +1,4 @@
-package ks_algorihms_and_datastructures.data_structures_i;
+package ks_algorithms_and_datastructures.data_structures_i;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
