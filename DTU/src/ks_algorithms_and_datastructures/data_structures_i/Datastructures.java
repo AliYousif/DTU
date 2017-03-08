@@ -22,18 +22,17 @@ public class Datastructures extends Application {
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		Datastructures ds = new Datastructures();
-		//ds.createSequence();
 		
-		
-		listOfRandInt = new int[]{3,2,5,7,9,1,4,6,8};
-		
+		//makes the array and copy
+		ds.createSequence();
 		int[] dest = new int[listOfRandInt.length];
-
 		System.arraycopy( listOfRandInt, 0, dest, 0, listOfRandInt.length);
 		
 		ds.CalculateRunTime(ds, "sortJavaImpl", dest);
 		System.arraycopy( listOfRandInt, 0, dest, 0, listOfRandInt.length);
+		
 		ds.CalculateRunTime(ds, "insertionSort", dest);
+		
 		System.arraycopy( listOfRandInt, 0, dest, 0, listOfRandInt.length);
 		ds.CalculateRunTime(ds, "sort", dest);
 		
@@ -101,20 +100,20 @@ public class Datastructures extends Application {
 	public void createSequence(){
 
 		Random rand = new Random();
-		int length = rand.nextInt(10000);
+		int length = rand.nextInt(50000);
 		
 		while(prevLength > length){
-			length = rand.nextInt(10000);
+			length = rand.nextInt(50000);
 		}
 		
 		prevLength = length;
 		
 		listOfRandInt = new int[length] ;
 		for(int i = 0; i<length;i++){
-			listOfRandInt[i] = rand.nextInt();
+			listOfRandInt[i] = rand.nextInt(50000);
 		}
 		
-		System.out.println("lenght of array: "+listOfRandInt.length); 
+		System.out.println("lenght of array: "+listOfRandInt.length + " and last int in array is: " +listOfRandInt[prevLength-1]); 
 		
 	}
 
@@ -122,6 +121,7 @@ public class Datastructures extends Application {
 		String res = "("+beforeOrAfter+")" +" " + methodname +": ";
 	    for (int i = 0; i < A.length; i++) {
 	        res = res + A[i] + " ";
+	        i = i * 1000;
 	    }
 	    System.out.print(res);
 	}
@@ -146,7 +146,7 @@ public class Datastructures extends Application {
 	        	int substract = results.get(i).lenghtOfArray/results.get(i).runtime;
 	        	for(int j = 0; j < results.get(i).runtime+1; j++){
 			        //populating the series with data
-			        series.setName(results.get(i).name+": "+j);
+			        series.setName(results.get(i).name+": "+j +" ms");
 			        if(j == 0){
 			        	series.getData().add(new XYChart.Data(j, results.get(i).lenghtOfArray));
 			        	prevLength = results.get(i).lenghtOfArray;
