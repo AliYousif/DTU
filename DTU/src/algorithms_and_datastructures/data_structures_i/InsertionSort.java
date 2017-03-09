@@ -11,7 +11,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
-import ks_algorithms_and_datastructures.data_structures_i.Datastructures;
+
 
 public class InsertionSort extends Application {
 
@@ -35,21 +35,23 @@ public class InsertionSort extends Application {
 		System.out.println("Length of random array with ints 3 TIME for Arrays.Sort ----------------------------------: " + insertionSort.listOfRandomIntForJavaSort.length);
 		System.out.println("Length of random array with ints 3 TIME for InsertionSort --------------------------------: " + insertionSort.listOfRandomIntForInsertionSort.length);
 		
+		// Uncomment this if you want to print the unsortet array in the console.
 //		System.out.println("The unsorted array with random numbers and random size: ----------------------------------------- ");
-//		for (int i : insertionSort.listOfRandomInt) {
+//		for (int i : insertionSort.listOfRandomIntForInsertionSort) {
 //			System.out.println(i);
 //		}
-		
+//		
 		insertionSort.CalculateRunTime(insertionSort, "sortJavaImpl");
 		
 		insertionSort.CalculateRunTime(insertionSort, "myInsertionSort");
-//		
+		
+		// Uncomment this if you want to print the sortet array in the console.
 //		System.out.println("The SORTED array: -------------------------------------------------------------------");
-//		for (int i : insertionSort.listOfRandomInt) {
-//			System.out.println(i);
-//		}
+		for (int i : insertionSort.listOfRandomIntForInsertionSort) {
+			System.out.println(i);
+		}
 
-	
+		// This is to draw the graphs
 		launch(args);
 
 	}
@@ -100,7 +102,7 @@ public class InsertionSort extends Application {
 	}
 
 	
-	// M3 - 
+	// M3 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
@@ -144,6 +146,7 @@ public class InsertionSort extends Application {
 
 	}
 	
+	// M2 - Calculate runtime for algorithm and adds result to array for later use.
 	public void CalculateRunTime(InsertionSort insertionSort, String methodName)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException {
