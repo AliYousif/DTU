@@ -23,7 +23,7 @@ public class FindPeaks {
 			int rightCompared = 0;
 			int leftCompared = 0;
 			
-			//Sikkerhed mod indexOfOFBounds
+			//Sikkerhed mod indexOfOFBounds.
 			if(i >= 1) {
 				leftCompared = listOfPeeks[i-1];
 			} if(listOfPeeks.length-1 > i) {
